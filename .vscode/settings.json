@@ -1,0 +1,14 @@
+{
+  "reactSnippets.settings.importReactOnTop": false, // Disable import react on top
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.organizeImports": "always"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+  }
+}
