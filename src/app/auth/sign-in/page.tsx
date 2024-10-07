@@ -1,13 +1,11 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import SignInForm from "@/components/forms/sign-in";
 
 const SignInPage = () => {
   return (
-    <div>
-      <button onClick={() => signIn("google", { callbackUrl: "/" })}>
-        google
-      </button>
+    <div className="flex h-screen items-center justify-center">
+      <SignInForm />
     </div>
   );
 };
