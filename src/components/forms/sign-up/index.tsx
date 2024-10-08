@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { z } from "zod";
@@ -36,11 +37,17 @@ const SignUpForm = () => {
       <CardContent>
         {/* Social Logins */}
         <div className="my-4 flex items-center justify-evenly">
-          <Button className="flex min-w-[8rem] items-center gap-2">
+          <Button
+            className="flex min-w-[8rem] items-center gap-2"
+            onClick={() => signIn("github")}
+          >
             <FaGithub />
             <span>Github</span>
           </Button>
-          <Button className="flex min-w-[8rem] items-center gap-2">
+          <Button
+            className="flex min-w-[8rem] items-center gap-2"
+            onClick={() => signIn("google")}
+          >
             <FaGoogle />
             <span>Google</span>
           </Button>
@@ -77,7 +84,7 @@ const SignUpForm = () => {
         </form>
       </CardContent>
       <CardFooter className="flex items-center justify-center">
-        <span className="text-muted-foreground mr-2">Secured by</span> iM@il
+        <span className="mr-2 text-muted-foreground">Secured by</span> iM@il
       </CardFooter>
     </Card>
   );

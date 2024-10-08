@@ -5,6 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
+import { authConfig } from "./auth.config";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -15,9 +16,7 @@ declare module "next-auth" {
 }
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
-  session: {
-    strategy: "jwt",
-  },
+  ...authConfig,
   adapter: PrismaAdapter(db),
   providers: [
     GithubProvider({
