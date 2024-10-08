@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/server/db";
+import axios from "axios";
 import { getAuthUserID } from "./user";
 
 export const getAurinkoAuthorizationUrl = async (
@@ -42,4 +43,36 @@ export const getAurinkoAuthorizationUrl = async (
   });
 
   return `https://api.aurinko.io/v1/auth/authorize?${params.toString()}`;
+};
+
+export const getAurinkoToken = async (code: string) => {
+  /*
+  To start a aurinko user session request for an access token
+  Read More: https://apirefs.aurinko.io/#section/API-Authentication
+  */
+  try {
+    const response = await axios.post(
+      `https://api.aurinko.io/v1/auth/token/${code}`,
+      {},
+      {
+        auth: {
+          username: process.env.AURINKO_CLIENT_ID as string,
+          password: process.env.AURINKO_CLIENT_SECRET as string,
+        },
+      },
+    );
+
+    return response.data as {
+      accountId: number;
+      accessToken: string;
+      userId: string;
+      userSession: string;
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error fetching Aurinko token:", error.response?.data);
+    } else {
+      console.error("Unexpected error fetching Aurinko token:", error);
+    }
+  }
 };
