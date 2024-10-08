@@ -2,8 +2,8 @@
 
 import { db } from "@/server/db";
 import axios from "axios";
-import { getAuthUserID } from "./user";
 import { EmailMessage } from "./types";
+import { getAuthUserID } from "./user";
 
 export const getAurinkoAuthorizationUrl = async (
   serviceType: "Google" | "Office365",
@@ -42,7 +42,6 @@ export const getAurinkoAuthorizationUrl = async (
     responseType: "code",
     returnUrl: `${process.env.NEXT_PUBLIC_URL}/api/aurinko/callback`,
   });
-
   return `https://api.aurinko.io/v1/auth/authorize?${params.toString()}`;
 };
 
