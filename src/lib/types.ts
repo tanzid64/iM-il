@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface EmailMessage {
   id: string;
   threadId: string;
@@ -64,3 +66,19 @@ export interface EmailHeader {
   name: string;
   value: string;
 }
+
+export interface SyncResponse {
+  syncUpdatedToken: string;
+  syncDeletedToken: string;
+  ready: boolean;
+}
+export interface SyncUpdatedResponse {
+  nextPageToken?: string;
+  nextDeltaToken: string;
+  records: EmailMessage[];
+}
+
+export const emailAddressSchema = z.object({
+  name: z.string(),
+  address: z.string(),
+});
