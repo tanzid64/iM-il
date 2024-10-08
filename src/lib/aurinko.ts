@@ -104,6 +104,10 @@ export const getAccountDetails = async (accessToken: string) => {
 };
 
 export const getEmailDetails = async (accessToken: string, emailId: string) => {
+  /*
+  Get email details based on email id
+  Read More: https://apirefs.aurinko.io/#section/API-Authentication
+  */
   try {
     const response = await axios.get<EmailMessage>(
       `https://api.aurinko.io/v1/email/messages/${emailId}`,
