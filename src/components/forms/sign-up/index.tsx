@@ -5,44 +5,32 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { FaArrowRight, FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { z } from "zod";
+import { SignInSchema as SignUpSchema } from "../sign-in";
 
-export const SignInSchema = z.object({
-  email: z.string().email("You must give a valid email"),
-  password: z
-    .string()
-    .min(8, { message: "Your password must be atleast 8 characters long" })
-    .max(64, {
-      message: "Your password can not be longer then 64 characters long",
-    })
-    .refine(
-      (value) => /^[a-zA-Z0-9_.-]*$/.test(value ?? ""),
-      "password should contain only alphabets and numbers",
-    ),
-});
-
-const SignInForm = () => {
+const SignUpForm = () => {
   const {
     register,
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm<z.infer<typeof SignInSchema>>({
-    resolver: zodResolver(SignInSchema),
+  } = useForm<z.infer<typeof SignUpSchema>>({
+    resolver: zodResolver(SignUpSchema),
     mode: "onTouched",
   });
   return (
     <Card className="w-[400px]">
       <CardHeader className="text-center">
-        <CardTitle>Sign in to iMail</CardTitle>
+        <CardTitle>Create your account</CardTitle>
         <CardDescription>
-          Welcome back! Please sign in to continue
+          Welcome! Please fill in the details to get started.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -84,13 +72,15 @@ const SignInForm = () => {
             errors={errors}
           />
           <Button type="submit" className="rounded-2xl">
-            <span className="mr-4">Continue</span>
-            <FaArrowRight />
+            Sign Up with Email
           </Button>
         </form>
       </CardContent>
+      <CardFooter className="flex items-center justify-center">
+        <span className="text-muted-foreground mr-2">Secured by</span> iM@il
+      </CardFooter>
     </Card>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
